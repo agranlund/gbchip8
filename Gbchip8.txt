@@ -1,0 +1,409 @@
+GB-Chip8 v0.6
+CHIP8 Emulator for Nintendo Gameboy(tm)
+(c) Anders Granlund 1998
+
+This program is free software:
+you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
+Free Software Foundation, either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.
+If not, see <https://www.gnu.org/licenses/>.
+
+
+
+1.0	WHAT IS CHIP8?
+ 1.1	  What is GB-CHIP8?
+
+2.0	HOW TO USE CHIP8 GAMES WITH THE EMULATOR
+  2.1	  Single-game mode
+  2.2 	  Multi-game mode
+
+3.0	MENUS
+  3.1	  Main menu
+  3.2	  Joystick configuration
+  3.3	  Options menu
+  3.4	  Runtime
+
+4.0	KNOWN KEYBOARD MAPPINGS
+  3.1 	  Blinky
+  3.2	  Blitz
+  3.3	  Brix
+  3.4	  Invaders
+  3.5	  Missile
+  3.6	  Vbrix
+  3.7	  Pong + Pong2
+  3.8	  Tank
+  3.9	  Tetris
+  3.10	  Ufo
+  3.11	  Vers
+  3.12	  Wipeoff
+  3.13	  Syzygy
+
+5.0	CREDITS
+
+6.0	CONTACT ME
+
+7.0	HISTORY
+
+
+
+1.0     WHAT IS CHIP8?
+---	--------------
+Err, acctually I don't really know myself, it's a very old computer/videogame
+I guess. There are interpreters for most computers to run CHIP8 games.
+It was popular on the HP-calclators once so there's a lot of
+freeware games for it :-)
+
+CHIP8 spec.
+-----------
+Resolution:	64 * 32 pixels
+Sound:		Yes, single tone beeper
+Colours:	Black & white
+Controller:	16 Button (hex) keyboard
+Speed:		????
+Graphics:	"sprites" always XOR'ed against the background
+
+There's also something called the SUPER-CHIP8. The S-CHIP8 has better resolution
+and a few more commands...
+Both the CHIP8 and the SUPER-CHIP8 is fully emulated in this emulator!
+
+
+S-CHIP8 spec.
+-------------
+Resolution:	128 * 64 pixels
+Sound:		Yes, single tone beeper
+Colours:	Black & white
+controller:	16 Button (hex) keyboard
+Speed:		????
+Graphics:	"sprites" always XOR'ed against the background
+		Vertical scrolling (down) 1-16 pixels at a time
+		Horizontal scrolling (left/right) 4 pixels at a time
+
+1.1	WHAT IS GB-CHIP8?
+---	-----------------
+GB-CHIP8 is an emulator that allows you to play CHIP8 and SUPER-CHIP8 games on
+your Gameboy or Gameboy-emulator (see 2.0 for details of how to use it).
+Everything on the CHIP8/SCHIP8 is emulated so all games *should* work fine.
+The emulator is written in assembler (TASM with Jeff Frohwein's Gameboy table)
+and will emulate the CHIP8 in full speed.. The SCHIP8 game could be slower
+than the original in some games.
+
+The source code for the emulator is included and you are free to modify it
+for your own purpouse. You are however *not* allowed to spread modified copies
+of it on the internet or elsewhere.
+
+The source is unfortually not richly commented as I didn't plan to release the
+source, but there are some comments and they are in English...
+
+Enjoy!
+
+
+
+2.0	HOW TO USE CHIP8 GAMES WITH THE EMULATOR
+---	----------------------------------------
+There's two ways of using the GB-Chip8 interpreter:
+"single-game" or "multi-game" mode.
+
+SINGLE-GAME: 	Only one CHIP8 game on the gameboy-cart
+MULTI-GAME:	Up to 11 games on one gameboy cart (composed by CHIPMENU.EXE)
+
+
+2.1	SINGLE-GAME MODE
+---	----------------
+Instructions on how to use a single chip8-game togheter with the emulator:
+
+The file GBCHIP8.DAT is the emulator-program, you need to "merge" this file
+with the chip8-game.
+
+example (In DOS):
+copy /B GBCHIP8.DAT /B + [chip8 game] GBCHIP8.GB
+
+This will create a new file called GBCHIP8.GB containing the emulator
+and your chip8-game.
+
+WARNING: You *must* use a program like RGBFIX or similar to pad the
+	 "GBCHIP8.GB" into 64Kb and also correct the checksum in order
+	 to be able to run this on a real Gameboy!!
+
+
+
+2.2	MULTI GAME MODE
+---	---------------
+You need to run CHIPMENU.EXE (only avaliably for MS-Dos) to create a mult-game
+cart.
+
+
+example for CHIPMENU:
+
+CHIPMENU.EXE [game1] [game2] [game4] ..... [game11]
+
+This will create a file called GBCHIP8.GB that's ready to be runned on your
+Gameboy / Gameboy-emulator.
+
+( The program will look for RGBFIX.EXE in order to automaticly correct the
+checksum, if it can't find it you *must* correct it somehow before you
+can run it on the real gameboy! )
+
+
+
+3.0	MENUS
+---	-----
+
+3.1	MAIN MENU
+---	---------
+When running the cart you will see a menu looking like this:
+
+LOAD GAME		- Run a chip8 game
+CONFIGURE JOYPAD	- Set the joypad settings
+OPTIONS			- options menu
+ABOUT			- some info...
+
+Multicart:
+----------
+Pressing the LOAD-GAME menu will bring you up to a menu of all the games
+you chosed with GAMEMENU. Pressing on a name will start the game!
+
+Single cart:
+------------
+Pressing LOAD-GAME will run the game that is on the cart.
+
+
+When running the emulator:
+If you press both [SELECT] and [START] at the same time will bring you
+back to the "LOAD GAME" menu.
+
+
+
+3.2	JOYSTICK CONFIGURATION
+---	----------------------
+
+This screen looks like this:
+
+
+	 UP:    ?
+1 2 3 C  DOWN:
+	 LEFT:
+4 5 6 D  RIGHT:
+
+7 8 9 E  A:
+	 B:
+A 0 B F	 START:
+	 SELECT:
+
+   ^       ^
+   |       |---  This is the Gameboy buttons
+   |
+   |
+   |
+   |--- The Chip8 16-button keyboard
+
+
+
+Since the chip8 uses 16-buttons and the gameboy has only 8, you won't be 
+able to control all of the chip8-buttons with the emulator.
+And as different games uses different button-settings you will need
+to change the joypad settings for almost every game you play.
+
+You will be prompted to select what the gameboy buttons should be mapped
+as on the chip8 keyboard.
+
+Pressing [SELECT] will abort, and send you to another screen:
+multi-game:  MAIN MENU
+single-game: Resets the chip8 and starts it over
+
+
+
+3.3	OPTIONS MENU
+---	------------
+SOUND 		- Turn the sound ON/OFF
+COLLISSIONS	- Turn the collission detection ON/OFF
+FORCE SCHIP	- Force all the games to run in Super Chip mode
+CHIP8 DELAY	- Set speed for Chip8 games (0 = fastest, 250 = slowest)
+DONE		- Go back to the main menu
+
+
+3.4	RUNTIME
+---	-------
+Buttons to press during game:
+
+
+[START] + [SELECT]
+multigame:	You go back to the LOAD GAME menu
+singlegame:	You will go to the joystick config. screen
+
+[A] + [B] + [START] + [SELECT]
+This resets the Gameboy
+
+
+
+4.0	KNOWN KEYBOARD MAPPINGS
+---	-----------------------
+
+Here are the controls for some Chip8 games:
+
+Game		Action		Button (chip8-keyboard)
+----		------		----------------------- 
+Blinky		move up		3
+		move down	6
+		move left	7	
+		move right	8
+		start		B
+
+Blitz		fire bomb	5
+
+Brix		move left	4
+		move right	6
+
+Invaders	move left	4
+		move right	6
+		fire/start	5
+
+Missile		fire missile	8
+
+Vbrix		move up		1
+		move down	4
+		start		7
+
+Pong/Pong2	player1 up	1
+		player1 down	4
+		player2 up	C
+		player2 down	D
+
+Tank		move up		8
+		move down	2
+		move left	4
+		move right	6
+		fire		5
+
+Tetris		Rotate		4
+		move left	5
+		move right	6
+		drop		7
+
+Ufo		fire up/left	4
+		fire up		5
+		fire up/right	6
+
+Vers		player1 up	7
+		player1 down	A
+		player1 left	1
+		player1 right	2
+		player2 up	C
+		player2 down	D
+		player2 left	B
+		player2 right	F
+
+Wipeoff		move left	4
+		move right	6
+
+Syzygy		start		F
+		move up		3
+		move down	6
+		move left	7
+		move right	8
+
+
+
+
+5.0	CREDITS
+---	-------
+Credits goes to David Winter for his MS-Dos based Chip8 emulator and for
+his info on how the chip8 works!
+
+
+6.0	CONTACT ME
+---	----------
+If you for some reason like to contat me, then please send me a mail:
+anders.granlund@sundsvall.mail.telia.com
+
+I would be glad to hear from anyone that uses my emulator...
+
+
+7.0	HISTORY:
+---	--------
+(Fourth official release v0.6)
+98-04-16	* GB-Chip8 is discontinued... All games seems to work ok, so
+		  there's no need to work on it longer.
+		  Also. I doub't anyone uses this as the feedback is *very*
+		  low, in fact only one person has given me any feedback at all.
+		* This release will probably be the final and comes with full
+		  sourcecode in TASM format.
+
+98-04-07	* The emulator now automaticly skips the HP48 header if there is 
+		  one, no need to convert the games from the HP48 format before
+		  running it with the emulator.
+		* Made the 4*5 fonts a bit nicer..
+
+98-04-06	* Fixed a bug when resetting the Gameboy in single-game mode
+		* ALL games that has been tested so far works OK!!
+
+(Third official release v0.5)
+98-04-06	* Fixed bug in random-number command.. Made a couple of games
+		  work! (WORM3, puzzle, puzzle15 etc..)
+		* Added another option in the OPTIONS-MENU: set chip8 delay,
+		  it lets you set the speed of CHIP8 games (does not affect
+		  S-CHIP games)
+		* Both single- and multigame carts starts at the main menu.
+
+(Second official release v0.4)
+98-04-05	* S-CHIP 8x10 fonts now works!
+		* Just a few SCHIP games won't work... Almost every game tested
+		  works perfect though!
+
+98-04-04	* All S-CHIP8 commands are implemented except for the 
+		  8x10 character set...
+		* Added a new menu: "OPTIONS", with options for setting
+		  sound and collisions ON/OFF and also "force s-chip" for
+		  forcing the emulator to always use the super-chip.
+		* MAJOR speedup in sprite drawings!!!
+		  The emulator is now acctually too fast as the games becomes
+		  unplayable :-) Need to implement a slowdown routine...
+
+98-04-03	* Super-Chip games now runs!
+		* Scrolling works in all directions... (slow)
+		* Removed bug in 16x16 sprites drawing
+
+(First Official release v0.3)
+98-04-02	* Made the menus for the game.
+		* Joypad configuration.
+		* removed a bug in the CHIPMENU.EXE
+		* Fixed a joypad-bug
+		* Fixed graphics-bug
+		* Added detection of CHIP8/SCHIP8 game
+
+98-04-01	* All opcodes are emulated and seems to be free from bugs.
+		* Total remake of the sprite-drawing engine...
+		* The screen is zoomed to double size!
+		* Sound is fully emulated
+		* Made a nicer looking play-screen.
+		* Collision detection is implemented
+		* Fixed a bug when loading/storeing the registers, finally
+		  got the space-invaders scroller working and blinky works
+		  now also!!
+		* 16x16 sprites 'might' work now..
+		* BCD-storage of Vx registers works -> numbers looks OK!
+		* Prevents chip8-games from drawing offscreen.
+		* Fake random number generator (table)
+		* Multi-cart menu composer (for MS-DOS), handles 11 Chip8 games
+		* Autodetection of multicart or single game. Game menu for
+		  multicart games.
+
+98-03-31	* Most of the games tested looks pretty good!
+		* ~90% of the opcodes emulated and seems to be working
+		  fine.
+		* 8xN sized sprites is beeing drawn (not yet perfect)
+		* Built in fonts are emulated.
+		* The 16x16 sprite is not yet implemented.
+		* Timing is emulated... Seems close enough.
+		* Very lousy keypad emulation.
+		* Sprite collisions not yet implemented.
+		* No random number routines yet.
+		* Y-axis screen doubler... makes the tiny screen a little bigger.
+
+98-03-30	* Started working on the emu. Got the opcodes emulated
+		  by aprox. 50%
+
